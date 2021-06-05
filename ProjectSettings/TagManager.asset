@@ -5,7 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Note
-  - Trees
+  - clock
+  - wall
+  - danger
+  - Goal
   layers:
   - Default
   - TransparentFX

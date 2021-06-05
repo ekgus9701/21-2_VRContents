@@ -5,58 +5,11 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public GameObject player;
 
-    [SerializeField] Transform thePlayer = null;
-    [SerializeField] float followSpeed = 5;
-
-    Vector3 playerDistance = new Vector3();
-    Vector3 t_destPos = new Vector3();
-
-    float hitDistance = 0;
-    [SerializeField] float zoomDistance = -1.25f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerDistance = transform.position - thePlayer.position; //카메라 위치에서 플레이어의 위치 뺌
-        t_destPos = thePlayer.position + playerDistance + (transform.right * hitDistance);
-    }
-
-    // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            t_destPos = thePlayer.position + playerDistance + (transform.forward * hitDistance);//transform.forward * hitDistance: 카메라 정면으로 줌 땡김
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            t_destPos = thePlayer.position + playerDistance + (transform.right * hitDistance); //오른쪽으로 줌땡김
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            t_destPos = thePlayer.position + playerDistance + (-transform.right * hitDistance); //왼쪽으로 줌땡김
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            t_destPos = thePlayer.position + playerDistance + (-transform.forward * hitDistance); //뒤쪽으로 줌땡김
-        }
-
-
-        transform.position = Vector3.Lerp(transform.position, t_destPos, followSpeed * Time.deltaTime);
+        transform.position = player.transform.position + new Vector3(35, 35, 0); //카메라가 캐릭터를 따라다니게 했다.
     }
 
-    public IEnumerator ZoomCam()
-    {
-        hitDistance = zoomDistance;
-
-        yield return new WaitForSeconds(0.15f); //0.15초 기다림
-
-        hitDistance = 0;
-    }
 }

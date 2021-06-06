@@ -9,6 +9,7 @@ public class TitleMenu : MonoBehaviour
     {
         GameManager.instance.GameStart();
         this.gameObject.SetActive(false);
-        GameManager.instance.GameStart();
+        
     }
+
 }

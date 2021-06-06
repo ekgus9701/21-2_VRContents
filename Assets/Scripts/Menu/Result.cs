@@ -33,7 +33,13 @@ public class Result : MonoBehaviour
     public void BtnMainMenu()
     {
         goUI.SetActive(false);
+        GameManager.instance.MainMenu();
         
+    }
+
+    public void QuitGame()
+    {
+        GameManager.instance.GameQuit();
     }
    
 }

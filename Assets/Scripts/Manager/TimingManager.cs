@@ -95,4 +95,6 @@ public class TimingManager : MonoBehaviour
     {
         judgementRecord[4]++;
     }
+
+ 
 }

@@ -7,16 +7,18 @@ public class Result : MonoBehaviour
 {
     [SerializeField] GameObject goUI = null;
     [SerializeField] Text[] txtCount = null;
-
+    public static bool win;
     TimingManager theTiming;
         
     void Start()
     {
         theTiming = FindObjectOfType<TimingManager>();
     }
+
     public void ShowResult()
     {
-        
+        FindObjectOfType<CenterFlame>().ResetMusic();
+        win = true;
         goUI.SetActive(true);
 
         for (int i = 0; i < txtCount.Length; i++)
@@ -37,7 +39,7 @@ public class Result : MonoBehaviour
         
     }
 
-    public void QuitGame()
+    public void QuitGame() //결과창에서 quit 버튼을 누르면 게임을 끝내게 만들어줌
     {
         GameManager.instance.GameQuit();
     }

@@ -19,12 +19,29 @@ public class GameManager : MonoBehaviour
     public bool isStartGame = false;
     int check = 0;
 
+
+    TimingManager theTiming;
+    PlayerController thePlayer;
+
     void Start()
     {
         instance = this;
         GameTimeTextInCollision.text = ""; //처음에 '충돌시 텍스트' 안보이게 설정
         LoseText.text = ""; //처음에 졌을때 보이는 문구 안보이게 설정
-       
+        thePlayer = FindObjectOfType<PlayerController>();
+        theTiming = FindObjectOfType<TimingManager>();
+
+    }
+
+    void newStart()
+    {
+        if (isStartGame && Result.win) //이기고 메인메뉴에 가서 다시 시작하는 경우
+        {
+            GameTimeTextInCollision.text = ""; //처음에 '충돌시 텍스트' 안보이게 설정
+            LoseText.text = ""; //처음에 졌을때 보이는 문구 안보이게 설정
+            GameTime = 151; //시간 초기화
+
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +53,7 @@ public class GameManager : MonoBehaviour
 
             if (check == 0)
             { //전역변수로 시간을 설정해주면 메뉴 시작부터 시간이 간다. check를 해주지않으면 업데이트 될때마다 121초로 초기화되어 시간이 가지않는다.
-                GameTime = 121;
+                GameTime = 151;
                 check++;
             }
 
@@ -48,6 +65,12 @@ public class GameManager : MonoBehaviour
                 GameTimeTextInCollision.text = collisionText; //충돌시 텍스트도 출력한다.
             }
         }
+        if (Result.win)
+        {
+            GameTime += Time.deltaTime; //이겼으면 시간이 더이상 줄지않아야한다.
+        }
+
+
 
 
         if ((int)GameTime == 0) //남은 시간이 0초면
@@ -56,7 +79,7 @@ public class GameManager : MonoBehaviour
             GameTimeText.text = "Time: " + (int)GameTime;  //화면에 출력한다
             isStartGame = false; //게임 끝남
 
-            LoseText.text = "Fail\nThe Game will be out in 5s";//5초후에 게임이 꺼질 것이라는 예고를 한다.
+            LoseText.text = "Fail\nThe Game will be out in 5s";//5초 후에 게임이 꺼질 것이라는 예고를 한다.
 
         }
 
@@ -71,6 +94,11 @@ public class GameManager : MonoBehaviour
 #endif
         }
 
+        if (isStartGame && Result.win) //이기고 메인메뉴로 가서 다시 스타트 할때
+        {
+            GameTime -= Time.deltaTime; //타이머 시간 다시 계속 줄어든다 (이게 없으면 타이머가 멈춰있다)
+        }
+
     }
 
 
@@ -81,7 +109,8 @@ public class GameManager : MonoBehaviour
             goGameUI[i].SetActive(true);
         }
         isStartGame = true;
-       
+        theTiming.Initialized();
+        thePlayer.Initialized();
     }
 
     public void MainMenu()
@@ -107,7 +136,7 @@ public class GameManager : MonoBehaviour
         }
     }
 }
-   
+
 
 
 

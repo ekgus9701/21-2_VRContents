@@ -5,12 +5,19 @@ using UnityEngine;
 public class CenterFlame : MonoBehaviour
 {
     AudioSource myAudio;
-    bool musicStart = false;
+   public bool musicStart = false;
+
+    public void ResetMusic()
+    {
+        musicStart = false;
+    }
 
     void Start()
     {
         myAudio = GetComponent<AudioSource>();
     }
+
+   
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

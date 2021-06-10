@@ -96,5 +96,11 @@ public class TimingManager : MonoBehaviour
         judgementRecord[4]++;
     }
 
- 
+ public void Initialized()
+    {
+        
+        for(int i=0;i<5;i++) 
+            judgementRecord[i] = 0;
+
+    }
 }
